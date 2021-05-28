@@ -1,0 +1,52 @@
+<html lang="en">
+	<%- include("./partials/head.ejs") %>
+
+	<body>
+		<%- include("./partials/nav.ejs") %>
+
+		<div class="details content">
+			<div class="blog">
+				<h2><%= blog.title %></h2>
+				<p class="date"><%= new Date(blog.createdAt).toLocaleDateString("en-US") %></p>
+				<div class="body"><%- blog.body %></div>
+				<div class="blog-content">
+					<button class="fa-btn trash" data-doc="<%= blog._id %>"><i class="fas fa-trash"></i></button>
+					<button class="fa-btn" data-doc="<%= blog._id %>">
+						<i class="fas fa-hand-holding-heart"></i
+						><span class="clap" data-doc="<%= blog._id %>" data-clap="<%= blog.clap %>"> <%= blog.clap %></span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const trash = document.querySelector(".trash");
+			const clap = document.querySelector(".clap");
+
+			trash.addEventListener("click", async e => {
+				const endpoint = `/blogs/${trash.dataset.doc}`;
+				const res = await fetch(endpoint, {
+					method: "DELETE",
+				});
+				const data = await res.json();
+				window.location.href = data.redirect;
+			});
+
+			clap.addEventListener("click", e => {
+				const num = +e.target.dataset.clap;
+				e.target.dataset.clap = num + 1;
+				e.target.textContent = num + 1;
+
+				const endpoint = `/blogs/${e.target.dataset.doc}`;
+
+				fetch(endpoint, {
+					method: "PATCH",
+					headers: { "Content-type": "application/json" },
+					body: JSON.stringify({ clap: num + 1 }),
+				})
+					.then(res => console.log(res.json()))
+					.catch(err => console.log(err));
+			});
+		</script>
+	</body>
+</html>

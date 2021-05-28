@@ -1,0 +1,176 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+:root {
+	--color-primary: #666666;
+}
+
+body {
+	background-color: whitesmoke;
+	font-size: 1.6rem;
+	color: var(--color-primary);
+	font-family: "Poppins", sans-serif;
+	min-height: 100vh;
+}
+
+nav {
+	width: 70%;
+	border-bottom: 1px solid #ddd;
+	padding-top: 2rem;
+	margin-bottom: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+header {
+	font-size: 1.5rem;
+}
+
+.header {
+	font-size: 5rem;
+}
+
+header,
+form,
+ul {
+	min-height: 10vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+ul {
+	list-style: none;
+}
+
+ul li:not(:last-child) {
+	margin-right: 2rem;
+}
+
+.single,
+a {
+	border: none;
+	text-decoration: none;
+	color: var(--color-primary);
+}
+
+.blogs span {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-left: 0.3rem;
+}
+
+/* Form style */
+.create-blog form {
+	max-width: 40rem;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.create-blog input,
+.create-blog textarea {
+	display: block;
+	width: 100%;
+	margin: 1rem 0;
+	padding: 0.8rem;
+}
+.create-blog label {
+	display: block;
+	margin-top: 2.4em;
+}
+textarea {
+	height: 12rem;
+}
+.create-blog button {
+	margin-top: 2rem;
+	background: crimson;
+	color: white;
+	padding: 0.6rem 1.2rem;
+	border: 0;
+	font-size: 2rem;
+	cursor: pointer;
+	border-radius: 20px;
+}
+
+/* Blog About */
+.fas {
+	pointer-events: none;
+}
+
+.content {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 60rem;
+}
+
+.blog {
+	margin: 2rem 0;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 2rem;
+	position: relative;
+}
+
+.blog-content {
+	position: absolute;
+	top: 10%;
+	right: -5%;
+	margin-top: 1rem;
+	display: flex;
+	align-items: center;
+}
+
+.fa-btn {
+	background-color: #fff;
+	border: none;
+	padding: 1.5rem;
+	color: var(--color-primary);
+	cursor: pointer;
+	border-radius: 50px;
+	margin-right: .5rem;
+}
+
+/* Detail */
+.details {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.details .body {
+	word-break: break-all;
+}
+
+.details .date {
+	margin-bottom: 2rem;
+}
+
+.details h2,
+.details .date {
+	text-align: center;
+}
+
+.details .blog {
+	display: static;
+	border-bottom: none;
+}
+
+.details .blog-content {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	margin-top: 30rem;
+}
+
+.details .trash {
+	margin-right: 1rem;
+}

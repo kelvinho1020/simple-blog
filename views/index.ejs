@@ -1,0 +1,71 @@
+<html lang="en">
+	<%- include("./partials/head.ejs") %>
+
+	<body>
+		<%- include("./partials/nav.ejs") %>
+
+		<div class="blogs content">
+			<h2>All Blogs</h2>
+
+			<% if (blogs.length > 0) { %> <% blogs.forEach(blog => { %>
+			<div class="blog">
+				<a href="/blogs/<%= blog._id %>" class="single">
+					<h3 class="title"><%= blog.title %></h3>
+					<p class="body"><%= blog.body.length >= 30 ? blog.body.slice(0, 30) + '...' : blog.body %></p>
+					<p class="date"><%= new Date(blog.createdAt).toLocaleDateString("en-US") %></p>
+				</a>
+				<div class="blog-content">
+					<button class="fa-btn trash" data-doc="<%= blog._id %>"><i class="fas fa-trash"></i></button>
+					<button class="fa-btn clap-btn" data-doc="<%= blog._id %>">
+						<i class="fas fa-hand-holding-heart"></i
+						><span class="clap" data-doc="<%= blog._id %>" data-clap="<%= blog.clap %>"><%= blog.clap %></span>
+					</button>
+				</div>
+			</div>
+
+			<% }) %> <% } else { %>
+			<br />
+			<p>Conguration !! You a the first person to write this blog !!</p>
+			<br />
+			<p>
+				Go and add a blog now !!<a href="/blogs/create"><span>HERE</span></a> !! (^ ^) b
+			</p>
+			<% } %>
+		</div>
+		<script>
+			const blogs = document.querySelector(".blogs");
+			const clapBtn = document.querySelectorAll(".clap-btn");
+			const claps = document.querySelectorAll(".clap");
+
+			blogs.addEventListener("click", async e => {
+				if (e.target.classList.contains("trash")) {
+					const trash = blogs.querySelector(".trash");
+					const endpoint = `/blogs/${trash.dataset.doc}`;
+					const res = await fetch(endpoint, {
+						method: "DELETE",
+					});
+					const data = await res.json();
+					window.location.href = data.redirect;
+				}
+			});
+
+			clapBtn.forEach((btn, i) =>
+				btn.addEventListener("click", () => {
+					const num = +claps[i].dataset.clap;
+					claps[i].dataset.clap = num + 1;
+					claps[i].textContent = num + 1;
+
+					const endpoint = `/blogs/${claps[i].dataset.doc}`;
+
+					fetch(endpoint, {
+						method: "PATCH",
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify({ clap: num + 1 }),
+					})
+						.then(res => console.log(res.json()))
+						.catch(err => console.log(err));
+				})
+			);
+		</script>
+	</body>
+</html>
