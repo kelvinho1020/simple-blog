@@ -61,6 +61,10 @@ a {
 	color: var(--color-primary);
 }
 
+nav li:hover {
+	transform: scale(1.1) rotate(5deg);
+}
+
 .blogs span {
 	font-size: 2rem;
 	font-weight: bold;
@@ -101,6 +105,10 @@ textarea {
 	border-radius: 20px;
 }
 
+.create-blog button:hover {
+	transform: scale(1.1);
+}
+
 /* Blog About */
 .fas {
 	pointer-events: none;
@@ -135,7 +143,11 @@ textarea {
 	color: var(--color-primary);
 	cursor: pointer;
 	border-radius: 50px;
-	margin-right: .5rem;
+	margin-right: 0.5rem;
+}
+
+.fa-btn:hover {
+	transform: scale(1.1);
 }
 
 /* Detail */
@@ -173,4 +185,44 @@ textarea {
 
 .details .trash {
 	margin-right: 1rem;
+}
+
+.details .text {
+	margin-left: 1rem;
+}
+
+/* loading */
+.overlay {
+	position: fixed;
+	background-color: black;
+	opacity: 0.3;
+	height: 100vh;
+	width: 100%;
+	z-index: 1000;
+}
+
+.loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.hidden {
+	display: none;
+}
+
+/* Media Query */
+@media screen and (max-width: 700px) {
+	html {
+		font-size: 50%;
+	}
+
+	.blog-content {
+		position: static;
+	}
+
+	.content {
+		padding: 0 3rem;
+	}
 }

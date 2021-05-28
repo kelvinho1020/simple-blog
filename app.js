@@ -8,6 +8,7 @@ dotenv.config({ path: "./config.env" });
 // express app
 const app = express();
 app.use(bodyParser.json());
+mongoose.set('useFindAndModify', false);
 const dbURI = process.env.DBURI;
 mongoose
 	.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })

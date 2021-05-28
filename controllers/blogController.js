@@ -35,6 +35,7 @@ const blog_update_clap = (req, res) => {
 		new: true,
 		runValidators: true,
 	}).catch(err => console.log(err));
+	res.end();
 };
 
 const blog_delete = (req, res) => {

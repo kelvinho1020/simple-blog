@@ -2,7 +2,7 @@
 	<%- include("./partials/head.ejs") %>
 
 	<body>
-		<%- include("./partials/nav.ejs") %>
+		<%- include("./partials/loading.ejs") %> <%- include("./partials/nav.ejs") %>
 
 		<div class="details content">
 			<div class="blog">
@@ -11,9 +11,9 @@
 				<div class="body"><%- blog.body %></div>
 				<div class="blog-content">
 					<button class="fa-btn trash" data-doc="<%= blog._id %>"><i class="fas fa-trash"></i></button>
-					<button class="fa-btn" data-doc="<%= blog._id %>">
+					<button class="fa-btn clap" data-doc="<%= blog._id %>" data-clap="<%= blog.clap %>">
 						<i class="fas fa-hand-holding-heart"></i
-						><span class="clap" data-doc="<%= blog._id %>" data-clap="<%= blog.clap %>"> <%= blog.clap %></span>
+						><span class="text" data-doc="<%= blog._id %>"><%= blog.clap %></span>
 					</button>
 				</div>
 			</div>
@@ -22,6 +22,8 @@
 		<script>
 			const trash = document.querySelector(".trash");
 			const clap = document.querySelector(".clap");
+			const overlay = document.querySelector(".overlay");
+			const text = document.querySelector(".text");
 
 			trash.addEventListener("click", async e => {
 				const endpoint = `/blogs/${trash.dataset.doc}`;
@@ -32,21 +34,25 @@
 				window.location.href = data.redirect;
 			});
 
-			clap.addEventListener("click", e => {
+			clap.addEventListener("click", async e => {
 				const num = +e.target.dataset.clap;
 				e.target.dataset.clap = num + 1;
-				e.target.textContent = num + 1;
+				text.textContent = num + 1;
 
 				const endpoint = `/blogs/${e.target.dataset.doc}`;
-
-				fetch(endpoint, {
-					method: "PATCH",
-					headers: { "Content-type": "application/json" },
-					body: JSON.stringify({ clap: num + 1 }),
-				})
-					.then(res => console.log(res.json()))
-					.catch(err => console.log(err));
+				try {
+					overlay.classList.remove("hidden");
+					await fetch(endpoint, {
+						method: "PATCH",
+						headers: { "Content-type": "application/json" },
+						body: JSON.stringify({ clap: num + 1 }),
+					});
+					overlay.classList.add("hidden");
+				} catch (err) {
+					console.log(err);
+				}
 			});
+			
 		</script>
 	</body>
 </html>

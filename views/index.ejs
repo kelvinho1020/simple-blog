@@ -2,8 +2,8 @@
 	<%- include("./partials/head.ejs") %>
 
 	<body>
+		<%- include("./partials/loading.ejs") %>
 		<%- include("./partials/nav.ejs") %>
-
 		<div class="blogs content">
 			<h2>All Blogs</h2>
 
@@ -36,6 +36,7 @@
 			const blogs = document.querySelector(".blogs");
 			const clapBtn = document.querySelectorAll(".clap-btn");
 			const claps = document.querySelectorAll(".clap");
+			const overlay = document.querySelector(".overlay");
 
 			blogs.addEventListener("click", async e => {
 				if (e.target.classList.contains("trash")) {
@@ -50,20 +51,23 @@
 			});
 
 			clapBtn.forEach((btn, i) =>
-				btn.addEventListener("click", () => {
+				btn.addEventListener("click", async () => {
 					const num = +claps[i].dataset.clap;
 					claps[i].dataset.clap = num + 1;
 					claps[i].textContent = num + 1;
 
 					const endpoint = `/blogs/${claps[i].dataset.doc}`;
-
-					fetch(endpoint, {
-						method: "PATCH",
-						headers: { "Content-type": "application/json" },
-						body: JSON.stringify({ clap: num + 1 }),
-					})
-						.then(res => console.log(res.json()))
-						.catch(err => console.log(err));
+					try {
+						overlay.classList.remove("hidden");
+						const res = await fetch(endpoint, {
+							method: "PATCH",
+							headers: { "Content-type": "application/json" },
+							body: JSON.stringify({ clap: num + 1 }),
+						});
+						overlay.classList.add("hidden");
+					} catch (err) {
+						console.log(err);
+					}
 				})
 			);
 		</script>
