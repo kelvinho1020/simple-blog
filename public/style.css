@@ -212,6 +212,54 @@ textarea {
 	display: none;
 }
 
+/* Select Box */
+.select-box {
+	cursor: pointer;
+	position : relative;
+	max-width:  20rem;
+	margin: 5rem auto;
+	width: 100%;
+  }
+  
+  .select,
+  .label {
+	color: #414141;
+	display: block;
+	font: 400 1.6rem 'Source Sans Pro', sans-serif;
+  }
+  
+  .select {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	padding: .5rem 0;
+	height: 4rem;
+	opacity: 0;
+	background: none transparent;
+	border: 0 none;
+  }
+  .select-box1 {
+	background: #ececec;
+  }
+  
+  .label {
+	position: relative;
+	padding: .5rem 1rem;
+	cursor: pointer;
+  }
+  .open .label::after {
+	 content: "▲";
+  }
+  .label::after {
+	content: "▼";
+	font-size: 1.2rem;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: .8rem 1.5rem;
+	border-left: .5rem solid #fff;
+  }
+
 /* Media Query */
 @media screen and (max-width: 700px) {
 	html {
@@ -226,51 +274,3 @@ textarea {
 		padding: 0 3rem;
 	}
 }
-
-/* Select Box */
-.select-box {
-	cursor: pointer;
-	position : relative;
-	max-width:  20em;
-	margin: 5em auto;
-	width: 100%;
-  }
-  
-  .select,
-  .label {
-	color: #414141;
-	display: block;
-	font: 400 17px/2em 'Source Sans Pro', sans-serif;
-  }
-  
-  .select {
-	width: 100%;
-	position: absolute;
-	top: 0;
-	padding: 5px 0;
-	height: 40px;
-	opacity: 0;
-	background: none transparent;
-	border: 0 none;
-  }
-  .select-box1 {
-	background: #ececec;
-  }
-  
-  .label {
-	position: relative;
-	padding: 5px 10px;
-	cursor: pointer;
-  }
-  .open .label::after {
-	 content: "▲";
-  }
-  .label::after {
-	content: "▼";
-	font-size: 12px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 5px 15px;
-	border-left: 5px solid #fff;
-  }
