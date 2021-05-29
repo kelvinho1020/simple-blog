@@ -2,15 +2,14 @@
 	<%- include("./partials/head.ejs") %>
 
 	<body>
-		<%- include("./partials/loading.ejs") %>
-		<%- include("./partials/nav.ejs") %>
+		<%- include("./partials/loading.ejs") %> <%- include("./partials/nav.ejs") %>
 		<div class="blogs content">
 			<h2>All Blogs</h2>
 
 			<% if (blogs.length > 0) { %> <% blogs.forEach(blog => { %>
 			<div class="blog">
 				<a href="/blogs/<%= blog._id %>" class="single">
-					<h3 class="title"><%= blog.title %></h3>
+					<h3 class="title"><%= blog.title.length >= 30 ? blog.body.slice(0, 30) + '...' : blog.title %></h3>
 					<p class="body"><%= blog.body.length >= 30 ? blog.body.slice(0, 30) + '...' : blog.body %></p>
 					<p class="date"><%= new Date(blog.createdAt).toLocaleDateString("en-US") %></p>
 				</a>
@@ -22,16 +21,30 @@
 					</button>
 				</div>
 			</div>
-
 			<% }) %> <% } else { %>
 			<br />
-			<p>Conguration !! You a the first person to write this blog !!</p>
+			<p>Conguration !! You are the first person to write this blog !!</p>
 			<br />
 			<p>
 				Go and add a blog now !!<a href="/blogs/create"><span>HERE</span></a> !! (^ ^) b
 			</p>
 			<% } %>
 		</div>
+
+		<% if(result.totalPages !== 1){ %>
+		<div class="select-box">
+		  <label for="select-box1" class="label select-box1"><span class="label-desc"><%= result.page %></span> </label>
+		  <select id="select-box1" class="select" onChange="window.location.href=this.value">
+			<option disabled selected value></option>
+			<% for(let i = 1; i <= result.totalPages; i ++){ %>
+				<% if( result.page !== i){ %>
+			<option value="/blogs/?page=<%= i %>/limit=10"><%= i %></option>
+				<% } %>
+			<% } %>
+		  </select>
+		</div>
+		<% }%>
+
 		<script>
 			const blogs = document.querySelector(".blogs");
 			const clapBtn = document.querySelectorAll(".clap-btn");

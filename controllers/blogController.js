@@ -1,10 +1,25 @@
 const Blog = require("../models/blog");
 
-const blog_index = (req, res) => {
-	Blog.find()
-		.sort({ createdAt: -1 })
-		.then(result => res.render("index", { title: "All Blogs", blogs: result }))
-		.catch(err => console.log(err));
+const blog_index = async (req, res) => {
+	try {
+		const { page, limit } = req.query;
+		const options = {
+			page: req.query.page || 1,
+			limit: req.query.limit || 10,
+			sort: { createdAt: -1 },
+		};
+		// const result = await Blog.find().sort({ createdAt: -1 }).skip();
+		const result = await Blog.paginate({}, options);
+		// res.json(result);
+
+		res.render("index", {
+			title: "All Blogs",
+			blogs: result.docs,
+			result
+		});
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 const blog_details = (req, res) => {
@@ -40,9 +55,9 @@ const blog_update_clap = (req, res) => {
 
 const blog_delete = (req, res) => {
 	const id = req.params.id;
-
+	
 	Blog.findByIdAndDelete(id)
-		.then(result => res.json({ redirect: "/blogs" }))
+		.then(result => res.json({ redirect: `/blogs` }))
 		.catch(err => console.log(err));
 };
 

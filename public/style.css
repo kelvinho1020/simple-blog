@@ -189,13 +189,13 @@ textarea {
 
 .details .text {
 	margin-left: 1rem;
+	pointer-events: none;
 }
 
 /* loading */
 .overlay {
 	position: fixed;
-	background-color: black;
-	opacity: 0.3;
+	opacity: 1;
 	height: 100vh;
 	width: 100%;
 	z-index: 1000;
@@ -226,3 +226,51 @@ textarea {
 		padding: 0 3rem;
 	}
 }
+
+/* Select Box */
+.select-box {
+	cursor: pointer;
+	position : relative;
+	max-width:  20em;
+	margin: 5em auto;
+	width: 100%;
+  }
+  
+  .select,
+  .label {
+	color: #414141;
+	display: block;
+	font: 400 17px/2em 'Source Sans Pro', sans-serif;
+  }
+  
+  .select {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	padding: 5px 0;
+	height: 40px;
+	opacity: 0;
+	background: none transparent;
+	border: 0 none;
+  }
+  .select-box1 {
+	background: #ececec;
+  }
+  
+  .label {
+	position: relative;
+	padding: 5px 10px;
+	cursor: pointer;
+  }
+  .open .label::after {
+	 content: "▲";
+  }
+  .label::after {
+	content: "▼";
+	font-size: 12px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 5px 15px;
+	border-left: 5px solid #fff;
+  }
