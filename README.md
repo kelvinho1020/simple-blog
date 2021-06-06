@@ -13,6 +13,14 @@ https://simple-blog-backend-app.herokuapp.com/blogs
 
 ![image](https://github.com/kelvinho1020/simple-blog/blob/master/simple%20Blog.gif)
 
+## Route
+| Functions              | URL                         |
+| :--------------------: | --------------------------- |
+| All Blog | /blogs |
+| About page | /about |
+| create new blog | /blogs/create |
+| blog detail | /blogs/:id |
+
 ## Project setup
 ```
 npm install
